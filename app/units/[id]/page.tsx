@@ -87,16 +87,10 @@ interface Props {
 export default function Page(props: Props) {
   const router = useRouter()
   const { params } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [status, setStatus] = React.useState('');
-  const [category, setCategory] = React.useState('');
 
   const [res] = useQuery({query: UNIT_BY_ID, variables: {id: params?.id} });
   const { data, fetching, error } = res;
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
   
   const [files, setFiles] = React.useState<{ preview: string }[]>([]);
 
@@ -124,69 +118,6 @@ export default function Page(props: Props) {
         break;
     }
   }
-
-  const drawer = (
-    <main 
-      className={stylesMain.main1}
-      style={{backgroundColor: 'rgb(244, 253, 232)'}}
-    >
-      <Toolbar>
-        <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <CottageIcon />
-        </IconButton>
-        <Typography 
-          variant="h6" 
-          component="div" 
-          sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-          Baymoon
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List
-        sx={{
-          // hover states
-          '& .MuiListItemButton-root:hover': {
-            bgcolor: 'orange',
-            background: 'rgb(212, 246, 161)',
-            borderRadius: '20px',
-            '&, & .MuiListItemIcon-root': {
-              fontWeight: 'bold',
-            },
-          },
-        }}
-      >
-        {['Dashboard', 'Properties', 'Tenants', 'Income', 'Expenses', 'Users'].map((text, index) => (
-          <ListItem style={{marginBottom: '15px'}} key={text} disablePadding>
-            <ListItemButton 
-              className = {stylesMain.listbutton}
-              onClick = {() => router.push(`/${text.toLowerCase() === 'dashboard' ? '' : text.toLowerCase() }`)}
-              style = 
-                { text === 'Properties' ? 
-                  {
-                    background: 'rgb(212, 246, 161)',
-                    borderRadius: '20px',
-                  } : {}}>
-              <ListItemIcon>
-                {getIcon(text)}
-              </ListItemIcon>
-              <ListItemText 
-                primary={text} 
-                primaryTypographyProps={text === 'Properties' ? 
-                {fontWeight: 'bold'} : {}} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </main>
-  );
-
-  const container = typeof window !== 'undefined' ? window.document.body : undefined;
 
   const darkTheme = createTheme({
     palette: {
@@ -293,7 +224,7 @@ export default function Page(props: Props) {
 
               <Grid
                 item
-                xs={2}
+                xs={4}
               >
                 <Typography
                   variant={'h5'}
@@ -566,7 +497,7 @@ export default function Page(props: Props) {
 
 const style = {
   board: {
-    width: '80vw',
+    width: '100vw',
     borderRadius: '10px',
     minHeight: '200px',
     marginBottom: '20px',

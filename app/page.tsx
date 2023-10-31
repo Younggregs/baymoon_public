@@ -43,6 +43,7 @@ import Image from 'next/image'
 import { FETCH_LISTINGS } from './utils/queries';
 import { useQuery } from 'urql';
 import { baseUrl } from './lib/constants';
+import Footer2 from './components/footer/footer-2';
 
 const drawerWidth = 240;
 
@@ -91,66 +92,6 @@ export default function Page() {
     }
   }
 
-  const drawer = (
-    <main 
-      className={stylesMain.main1}
-      style={{backgroundColor: 'rgb(244, 253, 232)'}}
-    >
-      <Toolbar>
-        <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <CottageIcon />
-        </IconButton>
-        <Typography 
-          variant="h6" 
-          component="div" 
-          sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-          Baymoon
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List
-        sx={{
-          // hover states
-          '& .MuiListItemButton-root:hover': {
-            bgcolor: 'orange',
-            background: 'rgb(212, 246, 161)',
-            borderRadius: '20px',
-            '&, & .MuiListItemIcon-root': {
-              fontWeight: 'bold',
-            },
-          },
-        }}
-      >
-        {['Dashboard', 'Properties', 'Tenants', 'Income', 'Expenses', 'Users'].map((text, index) => (
-          <ListItem style={{marginBottom: '15px'}} key={text} disablePadding>
-            <ListItemButton 
-              className = {stylesMain.listbutton}
-              onClick = {() => router.push(`/${text.toLowerCase() === 'dashboard' ? '' : text.toLowerCase() }`)}
-              style = 
-                { text === 'Properties' ? 
-                  {
-                    background: 'rgb(212, 246, 161)',
-                    borderRadius: '20px',
-                  } : {}}>
-              <ListItemIcon>
-                {getIcon(text)}
-              </ListItemIcon>
-              <ListItemText 
-                primary={text} 
-                primaryTypographyProps={text === 'Properties' ? 
-                {fontWeight: 'bold'} : {}} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </main>
-  );
 
   const container = typeof window !== 'undefined' ? window.document.body : undefined;
 
@@ -158,7 +99,7 @@ export default function Page() {
     palette: {
       mode: 'light',
       primary: {
-        main: 'rgb(244, 253, 232)',
+        main: '#fff',
       },
     },
   });
@@ -166,7 +107,7 @@ export default function Page() {
   return (
     <main 
       className={stylesMain.main}
-      style={{backgroundColor: 'rgb(244, 253, 232)'}}
+      style={{backgroundColor: '#fff'}}
     >
     <ThemeProvider theme={darkTheme}>
     <Box sx={{ display: 'flex' }}>
@@ -201,6 +142,8 @@ export default function Page() {
 
         <Grid
           container
+          alignItems="center"
+          justifyContent="center"
           style={style.board}
         >
           <Grid
@@ -213,7 +156,7 @@ export default function Page() {
           >
             <Typography 
                 variant="h3"
-                sx={{ flexGrow: 1, fontWeight: 'bold', color: '#fff', textShadow: '2px 2px 4px #000000' }}
+                sx={{ flexGrow: 1, fontWeight: 'bold', textAlign: 'center', color: '#fff', textShadow: '2px 2px 4px #000000' }}
               >
                 Find Your New Property
               </Typography>
@@ -233,7 +176,7 @@ export default function Page() {
                   placeholder="Search"
                   onChange={(e) => setSearch(e.target.value)}
                   style={{
-                      width: '50vw',
+                      width: '80vw',
                       height: '60px', 
                       padding: '12px 20px',
                       margin: '8px 0',
@@ -254,7 +197,8 @@ export default function Page() {
                 style={{margin: '5px'}}
                 direction="column"
                 item
-                xs={2}
+                xs={6}
+                sm={3}
             >
                 <FormControl fullWidth style={{marginTop: '10px', background: '#fff', color: '#000'}}>
                     <InputLabel 
@@ -284,7 +228,8 @@ export default function Page() {
                 style={{margin: '5px'}}
                 direction="column"
                 item
-                xs={2}
+                xs={6}
+                sm={3}
             >
                 <FormControl 
                   fullWidth 
@@ -318,7 +263,8 @@ export default function Page() {
                 style={{margin: '5px'}}
                 direction="column"
                 item
-                xs={2}
+                xs={6}
+                sm={3}
             >
                 <FormControl 
                   fullWidth 
@@ -352,7 +298,8 @@ export default function Page() {
                 style={{margin: '5px'}}
                 direction="column"
                 item
-                xs={2}
+                xs={6}
+                sm={3}
             >
                 <FormControl 
                   fullWidth 
@@ -386,7 +333,8 @@ export default function Page() {
                 style={{margin: '5px'}}
                 direction="column"
                 item
-                xs={2}
+                xs={6}
+                sm={3}
             >
                 <FormControl 
                   fullWidth 
@@ -440,20 +388,28 @@ export default function Page() {
             </Grid>
             <Grid
               item
-              xs={5}
+              xs={12}
+              sm={6}
             >
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="center"
+              >
               <Link href={`/units/${unit?.node?.id}`}>
                 <Image
-                  src={`${baseUrl}${unit?.node?.images[0]}`}
+                  src={unit?.node?.images.length > 0 ? `${unit?.node?.images[0]}` : '/'}
                   alt="Unit Thumbnail"
                   width={300}
                   height={250}
                 />
               </Link>
+              </Grid>
             </Grid>
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
             >
               <Typography
                 style={style.label}
@@ -526,6 +482,7 @@ export default function Page() {
             <Pagination color="secondary" count={first} page={page} onChange={handleChange} />
           </Grid>
         </Grid>
+        <Footer2 />
       </Box>
 
     </Box>
@@ -538,7 +495,7 @@ export default function Page() {
 const style = {
   board: {
     width: '100vw',
-    height: '80vh',
+    minHeight: '80vh',
     marginBottom: '20px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     backgroundColor: '#fff',
@@ -549,7 +506,7 @@ const style = {
     backgroundSize: 'cover', 
   },
   card: {
-    width: '80vw',
+    width: '90vw',
     minHeight: '250px',
     marginBottom: '20px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
