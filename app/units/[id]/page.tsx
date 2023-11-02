@@ -99,25 +99,6 @@ export default function Page(props: Props) {
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  const getIcon = (key: string) => {
-    switch (key) {
-      case 'Dashboard':
-        return <DashboardIcon />
-      case 'Properties':
-        return <AccountBalanceIcon />
-      case 'Tenants':
-        return <Groups3Icon />
-      case 'Income':
-           return <PaidIcon />
-      case 'Expenses':
-            return <SellIcon />
-      case 'Users':
-        return <PeopleIcon />
-    
-      default:
-        break;
-    }
-  }
 
   const darkTheme = createTheme({
     palette: {
@@ -129,8 +110,7 @@ export default function Page(props: Props) {
   });
 
   return (
-    <main 
-      className={stylesMain.main}
+    <main
       style={{backgroundColor: 'rgb(244, 253, 232)'}}
     >
     <ThemeProvider theme={darkTheme}>
@@ -159,26 +139,7 @@ export default function Page(props: Props) {
     </Toolbar>
       </AppBar>
 
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, color: '#000' }}
-      >
-        <Toolbar>
-            <IconButton
-                edge="start"
-                onClick={() => router.back()}
-            >
-                <ArrowBackIosIcon />
-            </IconButton>
-            <Typography 
-                variant="h6" 
-                component="div" 
-                sx={{ flexGrow: 1, fontWeight: 'bold' }}
-
-            >
-                Go Back
-            </Typography>
-        </Toolbar>
+      <Grid>
 
         <Grid
           container
@@ -487,7 +448,7 @@ export default function Page(props: Props) {
 
         </Grid>
 
-      </Box>
+      </Grid>
 
     </Box>
     </ThemeProvider>
@@ -501,6 +462,7 @@ const style = {
     borderRadius: '10px',
     minHeight: '200px',
     marginBottom: '20px',
+    marginTop: '60px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     backgroundColor: '#fff',
     color: '#000',

@@ -46,6 +46,7 @@ const UNIT_BY_ID = gql`
       name,
       quantity,
       price,
+      description,
       propertyUnitFeatures{
         bathrooms,
         bedrooms,

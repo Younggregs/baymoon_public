@@ -5,11 +5,6 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Groups3Icon from '@mui/icons-material/Groups3';
@@ -18,9 +13,6 @@ import PeopleIcon from '@mui/icons-material/People';
 import CottageIcon from '@mui/icons-material/Cottage';
 import SellIcon from '@mui/icons-material/Sell';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import stylesMain from './page.module.css';
@@ -28,21 +20,14 @@ import Button from '@mui/material/Button';
 import Link from "next/link"
 import { useRouter, useSearchParams } from 'next/navigation'
 import Grid from '@mui/material/Grid';
-import SearchIcon from '@mui/icons-material/Search';
 import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
 import Image from 'next/image'
 import { FETCH_LISTINGS } from './utils/queries';
 import { useQuery } from 'urql';
-import { baseUrl } from './lib/constants';
 import Footer2 from './components/footer/footer-2';
 
 const drawerWidth = 240;
@@ -64,37 +49,6 @@ export default function Page() {
     setAfter(data?.publicListing?.pageInfo?.endCursor || null)
   };
 
-  
-
-  console.log('data', data)
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const getIcon = (key: string) => {
-    switch (key) {
-      case 'Dashboard':
-        return <DashboardIcon />
-      case 'Properties':
-        return <AccountBalanceIcon />
-      case 'Tenants':
-        return <Groups3Icon />
-      case 'Income':
-           return <PaidIcon />
-      case 'Expenses':
-            return <SellIcon />
-      case 'Users':
-        return <PeopleIcon />
-    
-      default:
-        break;
-    }
-  }
-
-
-  const container = typeof window !== 'undefined' ? window.document.body : undefined;
-
   const darkTheme = createTheme({
     palette: {
       mode: 'light',
@@ -106,11 +60,10 @@ export default function Page() {
 
   return (
     <main 
-      className={stylesMain.main}
       style={{backgroundColor: '#fff'}}
     >
     <ThemeProvider theme={darkTheme}>
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -135,11 +88,15 @@ export default function Page() {
         </Toolbar>
       </AppBar>
 
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, color: '#000' }}
-      >
+      {/* <Grid
+          container
+        >
+        <Typography sx={{color: '#000'}}>
+          Pssssssss
+        </Typography>
+      </Grid> */}
 
+      <Grid>
         <Grid
           container
           alignItems="center"
@@ -483,7 +440,7 @@ export default function Page() {
           </Grid>
         </Grid>
         <Footer2 />
-      </Box>
+      </Grid>
 
     </Box>
     </ThemeProvider>
@@ -495,8 +452,9 @@ export default function Page() {
 const style = {
   board: {
     width: '100vw',
-    minHeight: '80vh',
+    minHeight: '100vh',
     marginBottom: '20px',
+    marginTop: '20px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     backgroundColor: '#fff',
     color: '#000',
