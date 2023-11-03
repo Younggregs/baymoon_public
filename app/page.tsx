@@ -29,6 +29,7 @@ import Image from 'next/image'
 import { FETCH_LISTINGS } from './utils/queries';
 import { useQuery } from 'urql';
 import Footer2 from './components/footer/footer-2';
+import { currencySymbols } from './lib/constants';
 
 const drawerWidth = 240;
 
@@ -328,7 +329,7 @@ export default function Page() {
           alignItems="center"
         >   
           <Typography>Page: {page}</Typography>
-          {data?.publicListing?.edges.map((unit: { node: { name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.PromiseLikeOfReactNode | null | undefined; id: any; images: any[]; description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; price: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; propertyUnitFeatures: { bedrooms: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; bathrooms: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; toilets: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; parkingSpace: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }; }; }, index: React.Key | null | undefined) => (
+          {data?.publicListing?.edges.map((unit: { node: { name: string; currency: string; id: any; images: any[]; description: string; price: string | number; propertyUnitFeatures: { bedrooms: string | number; bathrooms: string | number; toilets: string | number; parkingSpace: string | number; }; }; }, index: React.Key | null | undefined) => (
           <Grid
             container
             direction={'row'}
@@ -379,7 +380,7 @@ export default function Page() {
               <Typography
                 style={style.price}
                 >
-                  ${unit?.node?.price}
+                  {currencySymbols[unit?.node?.currency as keyof typeof currencySymbols]}{unit?.node?.price}
               </Typography>
               <Link href={`/units/${unit?.node?.id}`}>
                 <Button 

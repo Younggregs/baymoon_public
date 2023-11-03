@@ -27,6 +27,7 @@ const FETCH_LISTINGS = gql`
             description,
             price,
             images,
+            currency,
             propertyUnitFeatures{
                 bedrooms,
                 bathrooms,
