@@ -43,6 +43,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ImageCarousel from '../../components/units/image-carousel';
 import { UNIT_BY_ID } from '@/app/utils/queries';
 import { useQuery } from 'urql';
+import { currencySymbols } from '@/app/lib/constants';
 
 const drawerWidth = 240;
 const thumbsContainer = {
@@ -178,7 +179,7 @@ export default function Page(props: Props) {
                   <Typography
                     style={style.value}
                   >
-                    Allen, Ikeja, Lagos
+                    {data?.unitById?.location?.lga}, {data?.unitById?.location?.state}
                   </Typography>
                 </Grid>
               </Grid>
@@ -191,7 +192,7 @@ export default function Page(props: Props) {
                   variant={'h5'}
                   style={style.value}
                 >
-                  ${data?.unitById?.price}
+                  {currencySymbols[data?.unitById?.currency as keyof typeof currencySymbols]}{data?.unitById?.price}
                 </Typography>
               </Grid>
 
@@ -241,7 +242,7 @@ export default function Page(props: Props) {
                 <Typography
                   style={style.value}
                 >
-                  ${data?.unitById?.price}
+                  {currencySymbols[data?.unitById?.currency as keyof typeof currencySymbols]}{data?.unitById?.price}
                 </Typography>
               </Grid>
               <Grid
@@ -256,7 +257,22 @@ export default function Page(props: Props) {
                 <Typography
                   style={style.value}
                 >
-                  Allen Ikeja, Lagos
+                  {data?.unitById?.location?.lga}, {data?.unitById?.location?.state}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <Typography
+                  style={style.label}
+                >
+                  Payment Plan
+                </Typography>
+                <Typography
+                  style={style.value}
+                >
+                  {data?.unitById?.paymentPlan}
                 </Typography>
               </Grid>
               <Grid
@@ -395,22 +411,25 @@ export default function Page(props: Props) {
                 <Divider style={{margin: '10px'}} />
               </Grid>
 
+              {data?.unitById?.contactUsers?.map((item: { firstName: string; lastName: string; phoneNumber: string; }) =>
               <Grid
                 item
-                xs={6}
+                xs={12}
+                sm={4}
+                key={item.phoneNumber}
               >
                 <Typography
                   style={style.label}
                 >
-                  Phone number
+                  {item.firstName} {item.lastName}
                 </Typography>
                 <Typography
                   style={style.value}
                 >
-                  08109599594
+                  {item.phoneNumber}
                 </Typography>
-                
-              </Grid>
+              </Grid> 
+              )}
 
             </Grid>
           </Grid>

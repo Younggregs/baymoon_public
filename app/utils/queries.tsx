@@ -46,6 +46,17 @@ const UNIT_BY_ID = gql`
       name,
       quantity,
       price,
+      currency,
+      paymentPlan,
+      contactUsers{
+        firstName,
+        lastName,
+        phoneNumber
+      },
+      location{
+        state 
+        lga
+      },
       description,
       propertyUnitFeatures{
         bathrooms,

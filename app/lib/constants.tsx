@@ -1,5 +1,11 @@
 const cardWidth = "30ch"
 
+const currencySymbols = {
+    NAIRA: "₦",
+    DOLLAR: "$",
+    EURO: "€"
+}
+
 // dev
 // const url = "http://localhost:8000/graphql"
 // const uiUrl = "http://localhost:3000"
@@ -14,5 +20,6 @@ export {
     cardWidth,
     url,
     uiUrl,
-    baseUrl
+    baseUrl,
+    currencySymbols
 }
