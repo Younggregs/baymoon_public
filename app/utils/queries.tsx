@@ -71,10 +71,6 @@ const UNIT_BY_ID = gql`
       furnishing,
       category, 
       images,
-      user{
-        firstName,
-        lastName
-      },
       createdAt
     }
   }

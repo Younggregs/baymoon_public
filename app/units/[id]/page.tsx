@@ -402,21 +402,6 @@ export default function Page(props: Props) {
                 xs={6}
               >
                 <Typography
-                  style={style.label}
-                >
-                  Created By
-                </Typography>
-                <Typography
-                  style={style.value}
-                >
-                  {data?.unitById?.user?.firstName} {data?.unitById?.user?.lastName}
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={6}
-              >
-                <Typography
                   style={style.value}
                 >
                   Date Created: <i>{moment(new Date(data?.unitById?.createdAt)).fromNow()}</i>
