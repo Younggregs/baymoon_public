@@ -28,6 +28,7 @@ const FETCH_LISTINGS = gql`
             price,
             images,
             currency,
+            createdAt,
             propertyUnitFeatures{
                 bedrooms,
                 bathrooms,
@@ -69,7 +70,12 @@ const UNIT_BY_ID = gql`
       type,
       furnishing,
       category, 
-      images
+      images,
+      user{
+        firstName,
+        lastName
+      },
+      createdAt
     }
   }
 `;

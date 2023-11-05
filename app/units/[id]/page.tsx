@@ -44,6 +44,7 @@ import ImageCarousel from '../../components/units/image-carousel';
 import { UNIT_BY_ID } from '@/app/utils/queries';
 import { useQuery } from 'urql';
 import { currencySymbols } from '@/app/lib/constants';
+import moment from 'moment';
 
 const drawerWidth = 240;
 const thumbsContainer = {
@@ -128,6 +129,7 @@ export default function Page(props: Props) {
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}
+          onClick={() => router.push('/')}
         >
           <CottageIcon />
       </IconButton>
@@ -393,6 +395,36 @@ export default function Page(props: Props) {
                   style={style.value}
                 >
                   {data?.unitById?.furnishing}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <Typography
+                  style={style.label}
+                >
+                  Created By
+                </Typography>
+                <Typography
+                  style={style.value}
+                >
+                  {data?.unitById?.user?.firstName} {data?.unitById?.user?.lastName}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <Typography
+                  style={style.label}
+                >
+                  Date Created
+                </Typography>
+                <Typography
+                  style={style.value}
+                >
+                  Date Created: <i>{moment(new Date(data?.unitById?.createdAt)).fromNow()}</i>
                 </Typography>
               </Grid>
 

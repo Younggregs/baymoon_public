@@ -30,6 +30,7 @@ import { FETCH_LISTINGS } from './utils/queries';
 import { useQuery } from 'urql';
 import Footer2 from './components/footer/footer-2';
 import { currencySymbols } from './lib/constants';
+import moment from 'moment';
 
 const drawerWidth = 240;
 
@@ -329,7 +330,7 @@ export default function Page() {
           alignItems="center"
         >   
           <Typography>Page: {page}</Typography>
-          {data?.publicListing?.edges.map((unit: { node: { name: string; currency: string; id: any; images: any[]; description: string; price: string | number; propertyUnitFeatures: { bedrooms: string | number; bathrooms: string | number; toilets: string | number; parkingSpace: string | number; }; }; }, index: React.Key | null | undefined) => (
+          {data?.publicListing?.edges.map((unit: { node: { name: string; currency: string; id: any; createdAt: string; images: any[]; description: string; price: string | number; propertyUnitFeatures: { bedrooms: string | number; bathrooms: string | number; toilets: string | number; parkingSpace: string | number; }; }; }, index: React.Key | null | undefined) => (
           <Grid
             container
             direction={'row'}
@@ -394,6 +395,15 @@ export default function Page() {
                       fontWeight: 'bold',
                   }}>View Property</Button>
               </Link>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <Divider />
+              <Typography style={style.label}>
+                  Date Created: <i>{moment(new Date(unit?.node?.createdAt)).fromNow()}</i>
+              </Typography>
             </Grid>
             <Grid
               item
