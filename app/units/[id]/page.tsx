@@ -417,11 +417,6 @@ export default function Page(props: Props) {
                 xs={6}
               >
                 <Typography
-                  style={style.label}
-                >
-                  Date Created
-                </Typography>
-                <Typography
                   style={style.value}
                 >
                   Date Created: <i>{moment(new Date(data?.unitById?.createdAt)).fromNow()}</i>
