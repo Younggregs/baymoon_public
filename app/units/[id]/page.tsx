@@ -45,6 +45,7 @@ import { UNIT_BY_ID } from '@/app/utils/queries';
 import { useQuery } from 'urql';
 import { currencySymbols } from '@/app/lib/constants';
 import moment from 'moment';
+import ActivityIndicator from '@/app/components/activity-indicator';
 
 const drawerWidth = 240;
 const thumbsContainer = {
@@ -122,28 +123,38 @@ export default function Page(props: Props) {
         position="fixed"
         elevation={0}
       >
-      <Toolbar>
-      <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-          onClick={() => router.push('/')}
-        >
-          <CottageIcon />
-      </IconButton>
-      <Typography 
-        variant="h6" 
-        component="div" 
-        sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-        Baymoon
-      </Typography>
-    </Toolbar>
+        <Toolbar>
+          <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={() => router.push('/')}
+            >
+              <CottageIcon />
+          </IconButton>
+          <Typography 
+            variant="h6" 
+            component="div" 
+            sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+            Baymoon
+          </Typography>
+        </Toolbar>
       </AppBar>
 
+        
       <Grid>
-
+      {fetching ?  
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            style={{width: "100vw", height: "100vh"}}
+          >
+            <ActivityIndicator />
+          </Grid>
+        : ( 
         <Grid
           container
           style={style.board}
@@ -478,8 +489,9 @@ export default function Page(props: Props) {
           </Grid> 
 
         </Grid>
-
+        )}
       </Grid>
+     
 
     </Box>
     </ThemeProvider>

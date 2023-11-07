@@ -31,6 +31,7 @@ import { useQuery } from 'urql';
 import Footer2 from './components/footer/footer-2';
 import { currencySymbols } from './lib/constants';
 import moment from 'moment';
+import ActivityIndicator from './components/activity-indicator';
 
 const drawerWidth = 240;
 
@@ -322,6 +323,15 @@ export default function Page() {
             </Grid> 
         </Grid>
 
+        {fetching ?  
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+          >
+            <ActivityIndicator />
+          </Grid>
+        : (             
         <Grid
           container
           style={{width: '100vw'}}
@@ -439,8 +449,6 @@ export default function Page() {
           </Grid>
           ))}
 
-
-
           <Grid
             container
             direction={'row'}
@@ -450,6 +458,7 @@ export default function Page() {
             <Pagination color="secondary" count={first} page={page} onChange={handleChange} />
           </Grid>
         </Grid>
+        )}
         <Footer2 />
       </Grid>
 
