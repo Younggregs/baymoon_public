@@ -6,6 +6,27 @@ const currencySymbols = {
     EURO: "€"
 }
 
+const currencyFormat = {
+    NAIRA: {
+      format: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'NGN',
+    })
+    },
+    DOLLAR: {
+      format: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    })
+    },
+    EURO: {
+      format: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR',
+    })
+    }
+}
+
 // dev
 // const url = "http://localhost:8000/graphql"
 // const uiUrl = "http://localhost:3000"
@@ -21,5 +42,6 @@ export {
     url,
     uiUrl,
     baseUrl,
-    currencySymbols
+    currencySymbols,
+    currencyFormat
 }
