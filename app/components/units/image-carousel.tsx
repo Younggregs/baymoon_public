@@ -8,12 +8,15 @@ export default function ImageCarousel({ images }: { images: string[]}) {
         <Carousel>
             {images.map((image, index) => {
                 return (
-                    <div key={index}>
+                    <div 
+                        key={index}
+                    >
                         <Image 
                             src={`${image}`} 
                             alt='image'
                             width={500}
                             height={500}
+                            style={{ objectFit: 'cover' }}
                         />
                         <p className="legend">Image {index}</p>
                     </div>

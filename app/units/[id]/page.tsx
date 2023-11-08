@@ -31,15 +31,6 @@ import Button from '@mui/material/Button';
 import Link from "next/link"
 import { useRouter, useSearchParams } from 'next/navigation'
 import Grid from '@mui/material/Grid';
-import SearchIcon from '@mui/icons-material/Search';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import ImageCarousel from '../../components/units/image-carousel';
 import { UNIT_BY_ID } from '@/app/utils/queries';
 import { useQuery } from 'urql';
@@ -144,8 +135,12 @@ export default function Page(props: Props) {
       </AppBar>
 
         
-      <Grid>
-      {fetching ?  
+      <Grid
+        container
+        justifyContent={'center'}
+        alignContent={'center'}
+      >
+        {fetching ?  
           <Grid
             container
             alignItems="center"
@@ -157,6 +152,8 @@ export default function Page(props: Props) {
         : ( 
         <Grid
           container
+          xs={12}
+          sm={6}
           style={style.board}
         >
           <Grid item xs={12}>
