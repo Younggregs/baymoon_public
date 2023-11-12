@@ -35,16 +35,43 @@ import ActivityIndicator from './components/activity-indicator';
 
 const drawerWidth = 240;
 
+const unit_type = [
+    {value: 'flat', label: 'Flat/Apartment'},
+    {value: 'house', label: 'House'},
+    {value: 'land', label: 'Land'},
+    {value: 'office', label: 'Office'},
+    {value: 'shop', label: 'Shop'},
+    {value: 'warehouse', label: 'Warehouse'},
+    {value: 'event_center', label: 'Event Center'},
+    {value: 'hotel', label: 'Hotel'},
+    {value: 'school', label: 'School'},
+    {value: 'other', label: 'Other'},
+  ]
+
 export default function Page() {
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [type, setType] = React.useState('');
+  const [category, setCategory] = React.useState('');
+  const [bedrooms, setBedrooms] = React.useState('');
+  const [min_price, setMinPrice] = React.useState('');
+  const [max_price, setMaxPrice] = React.useState('');
   const [page, setPage] = React.useState(1);
   
   const [search, setSearch] = React.useState(''); 
   const [after, setAfter] = React.useState(null);
   const first = 10;
-  const [res] = useQuery({query: FETCH_LISTINGS, variables: {search, first, after} });
+  const [res] = useQuery({query: FETCH_LISTINGS, 
+    variables: {
+      search, 
+      unit_type: type, 
+      category, 
+      bedrooms: !bedrooms ? 0 : bedrooms, 
+      min_price: !min_price ? 0 : min_price, 
+      max_price: !max_price ? 0 : max_price, 
+      first, 
+      after
+    } });
   const { data, fetching, error } = res;
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -175,9 +202,9 @@ export default function Page() {
                         label="Type"
                         onChange={(e) => setType(e.target.value)}
                     >
-                        <MenuItem value={10}>Apartment/Flat</MenuItem>
-                        <MenuItem value={20}>House</MenuItem>
-                        <MenuItem value={30}>Shortlet</MenuItem>
+                      {unit_type.map((item) => (
+                        <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                      ))}
                     </Select>
                 </FormControl>
             </Grid> 
@@ -206,13 +233,13 @@ export default function Page() {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={type}
+                        value={category}
                         label="Category"
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => setCategory(e.target.value)}
                     >
-                        <MenuItem value={10}>Rent</MenuItem>
-                        <MenuItem value={20}>Sale</MenuItem>
-                        <MenuItem value={30}>Shortlet</MenuItem>
+                        <MenuItem value={'rent'}>Rent</MenuItem>
+                        <MenuItem value={'sale'}>Sale</MenuItem>
+                        <MenuItem value={'shortlet'}>Shortlet</MenuItem>
                     </Select>
                 </FormControl>
             </Grid> 
@@ -241,13 +268,16 @@ export default function Page() {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={type}
+                        value={bedrooms}
                         label="Bedrooms"
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => setBedrooms(e.target.value)}
                     >
-                        <MenuItem value={10}>1</MenuItem>
-                        <MenuItem value={20}>2</MenuItem>
-                        <MenuItem value={30}>3</MenuItem>
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
+                      <MenuItem value={5}>5</MenuItem>
+                      <MenuItem value={6}>6</MenuItem>
                     </Select>
                 </FormControl>
             </Grid> 
@@ -276,13 +306,24 @@ export default function Page() {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={type}
+                        value={min_price}
                         label="Min Price"
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => setMinPrice(e.target.value)}
                     >
-                        <MenuItem value={10}>100</MenuItem>
-                        <MenuItem value={20}>200</MenuItem>
-                        <MenuItem value={30}>300</MenuItem>
+                        <MenuItem value={100000}>100,000</MenuItem>
+                        <MenuItem value={200000}>200,000</MenuItem>
+                        <MenuItem value={300000}>300,000</MenuItem>
+                        <MenuItem value={400000}>400,000</MenuItem>
+                        <MenuItem value={500000}>500,000</MenuItem>
+                        <MenuItem value={600000}>600,000</MenuItem>
+                        <MenuItem value={700000}>700,000</MenuItem>
+                        <MenuItem value={800000}>800,000</MenuItem>
+                        <MenuItem value={900000}>900,000</MenuItem>
+                        <MenuItem value={1000000}>1,000,000</MenuItem>
+                        <MenuItem value={2000000}>2,000,000</MenuItem>
+                        <MenuItem value={3000000}>3,000,000</MenuItem>
+                        <MenuItem value={4000000}>4,000,000</MenuItem>
+                        <MenuItem value={5000000}>5,000,000</MenuItem>
                     </Select>
                 </FormControl>
             </Grid> 
@@ -311,13 +352,27 @@ export default function Page() {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={type}
+                        value={max_price}
                         label="Max Price"
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => setMaxPrice(e.target.value)}
                     >
-                        <MenuItem value={10}>100</MenuItem>
-                        <MenuItem value={20}>200</MenuItem>
-                        <MenuItem value={30}>300</MenuItem>
+                        <MenuItem value={300000}>300,000</MenuItem>
+                        <MenuItem value={400000}>400,000</MenuItem>
+                        <MenuItem value={500000}>500,000</MenuItem>
+                        <MenuItem value={600000}>600,000</MenuItem>
+                        <MenuItem value={700000}>700,000</MenuItem>
+                        <MenuItem value={800000}>800,000</MenuItem>
+                        <MenuItem value={900000}>900,000</MenuItem>
+                        <MenuItem value={1000000}>1,000,000</MenuItem>
+                        <MenuItem value={2000000}>2,000,000</MenuItem>
+                        <MenuItem value={3000000}>3,000,000</MenuItem>
+                        <MenuItem value={4000000}>4,000,000</MenuItem>
+                        <MenuItem value={5000000}>5,000,000</MenuItem>
+                        <MenuItem value={6000000}>6,000,000</MenuItem>
+                        <MenuItem value={7000000}>7,000,000</MenuItem>
+                        <MenuItem value={8000000}>8,000,000</MenuItem>
+                        <MenuItem value={9000000}>9,000,000</MenuItem>
+                        <MenuItem value={10000000}>10,000,000</MenuItem>
                     </Select>
                 </FormControl>
             </Grid> 

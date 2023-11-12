@@ -2,10 +2,15 @@ import { gql } from 'urql';
 
 {/* Public Listings */}
 const FETCH_LISTINGS = gql`
-    query PublicListing($search: String, $first: Int, $after: String){
+    query PublicListing($search: String, $unit_type: String, $category: String, $bedrooms: Int, $min_price: Int, $max_price: Int, $first: Int, $after: String){
     publicListing(
         first: $first,
         after: $after,
+        unitType: $unit_type,
+        category: $category,
+        bedrooms: $bedrooms,
+        minPrice: $min_price,
+        maxPrice: $max_price,
         filter: {
             or: [
                 {name: {icontains: $search}}
